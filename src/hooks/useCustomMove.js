@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import {
   createSearchParams,
   useNavigate,
@@ -14,18 +15,35 @@ const useCustomMove = () => {
   const page = getNum(queryParams.get("page"), 1);
   const size = getNum(queryParams.get("size"), 10);
   const queryDefault = createSearchParams({ page, size }).toString();
-  const moveToList = (pageParam) => {
-    console.log(pageParam)
-    let queryStr = "";
-    if (pageParam) {
-      const pageNum = getNum(pageParam, 1);
-      const sizeNum = getNum(pageParam, 10);
-      queryStr = createSearchParams({ page: pageNum, size: sizeNum });
-    } else {
-      queryStr = queryDefault;
-    }
-    navigate(pageParam)
-  };
-  return { moveToList, page, size };
+
+  const moveToList = useCallback(
+    ({ page, size }) => {
+      console.log(page, size);
+      let queryStr = "";
+
+      if (page || size) {
+        const pageNum = getNum(page, 1);
+        const sizeNum = getNum(size, 10);
+        queryStr = createSearchParams({ page: pageNum, size: sizeNum });
+      } else {
+        queryStr = queryDefault;
+      }
+      navigate({pathname:`../list`, search:queryDefault})
+    },
+    [page, size]
+  );
+
+  const moveToModify = useCallback((num) => {
+    console.log(queryDefault);
+    navigate({ pathname: `../modify/${num}`, search: queryDefault });
+  }, [navigate, queryDefault]);
+
+  const moveToRead=(num)=>{
+    console.log(queryDefault)
+    navigate({pathname:`../read/${num}`, search:queryDefault})
+  }
+
+  return { moveToList, moveToModify, moveToRead, page, size };
 };
-export default useCustomMove
+
+export default useCustomMove;

@@ -1,20 +1,16 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import AddComponent from "../../components/todo/AddComponent";
 
 const AddPage = () => {
-  useEffect(() => {
-    const f = async () => {
-      const res = await axios.post("http://localhost:8080/todo/add", {
-        tno: 8000,
-        writer: "이건호이다",
-        title: "안녕하지 않습니다",
-        complete: true,
-        dueDate: "2025-09-23",
-      });
-    };f()
-  }, []);
-
-  return <div>Todo AddPage</div>;
+  return (
+    <div className="p-4 w-full bg-white">
+      <div className="text-3xl font-extrabold">
+        Todo Add Page
+      </div>
+      <AddComponent />
+    </div>
+  );
 };
 
 export default AddPage;

@@ -1,39 +1,21 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import ListComponent from "../../components/todo/ListComponent";
+import PageComponent from "../../components/common/PageComponent";
 
 const ListPage = () => {
-  // const [queryParmas] = useSearchParams();
-  const [list, setList] = useState([])
-  // const page = queryParmas.get("page") ? parseInt(queryParmas.get("page")) : 1;
-  // const size = queryParmas.get("size") ? parseInt(queryParmas.get("size")) : 10;
-  useEffect(() => {
-    const f=async()=>{
-      const {data}=await axios.get('http://localhost:8080/todo/list')
-      console.log(data)
-      setList(data.dtoList)
-    };f()
-  }, [])
-  
+  const [queryParams] = useSearchParams();
+  const page = queryParams.get("page") ? parseInt(queryParams.get("page")) : 1;
+  const size = queryParams.get("size") ? parseInt(queryParams.get("size")) : 10;
 
-  // console.log(page, size);
   return (
     <div className="p-4 w-full bg-orange-200">
       <div className="text-3xl font-extrabold">
-        List Page Components 
-        {/* {page}----------{size} */}
-        {list.map(i=>(
-          <li>
-            <Link to={`/todo/read/${i.tno}`}>{i.tno}</Link>
-            <ul>{i.writer}</ul>
-            <ul>{i.title}</ul>
-            <ul>{i.complete}</ul>
-            <ul>{i.dueDate}</ul>
-          </li>
-        ))}
+        Todo List Page components {page}------------{size}
       </div>
+      <ListComponent page={page} size={size} />
+
     </div>
   );
 };
-//소라
+
 export default ListPage;
