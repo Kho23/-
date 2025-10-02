@@ -3,6 +3,7 @@ import { getList, getOne } from "../../api/TodoApi";
 import makeDiv from "../../utils/autocss";
 import useCustomMove from "../../hooks/useCustomMove";
 import PageComponent from "../common/PageComponent";
+import { useNavigate } from "react-router-dom";
 const initState = {
   dtoList: [],
   pageNumList: [],
@@ -17,15 +18,17 @@ const initState = {
 };
 const ListComponent = () => {
   const [serverData, setServerData] = useState(initState);
-  const { page,size, moveToRead } = useCustomMove();
+  const { page,size, moveToRead,moveToList } = useCustomMove();
+  const nav = useNavigate();
+ 
   useEffect(() => {
     getList({ page, size }).then((d) => {
+      //pageResponseDTO<TodoDTO> 가 담겨옴 = d
       console.log(d);
       console.log('d:',d)
       setServerData(d);
     });
   }, [page, size]);
-
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
       <div className="flex flex-wrap mx-auto justify-center p-6">
@@ -41,7 +44,8 @@ const ListComponent = () => {
           </div>
         ))}
       </div>
-            <PageComponent serverData={serverData} />
+            <PageComponent serverData={serverData}
+                           movePage={(i)=>moveToList(i)} />
     </div>
   );
 };

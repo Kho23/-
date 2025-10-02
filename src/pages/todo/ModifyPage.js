@@ -22,11 +22,11 @@ const ModifyPage = () => {
       );
       console.log(data);
       setBefore(data);
-      console.log(before);
+
     };
     f();
   }, []);
-
+  console.log(before);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBefore({ ...before, [name]: value });
@@ -34,7 +34,6 @@ const ModifyPage = () => {
 
   const handleSubmit = async (e) => {
 
-    const res = await axios.put("http://localhost:8080/todo/update", before);
   };
 
   return (

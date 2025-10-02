@@ -24,11 +24,11 @@ const useCustomMove = () => {
       if (page || size) {
         const pageNum = getNum(page, 1);
         const sizeNum = getNum(size, 10);
-        queryStr = createSearchParams({ page: pageNum, size: sizeNum });
+        queryStr = createSearchParams({ page: pageNum, size: sizeNum }).toString();
       } else {
         queryStr = queryDefault;
       }
-      navigate({pathname:`../list`, search:queryDefault})
+      navigate({pathname:`../list`, search:queryStr})
     },
     [page, size]
   );

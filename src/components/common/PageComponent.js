@@ -13,16 +13,19 @@ const PageComponent = ({ serverData, movePage }) => {
       ) : (
         <></>
       )}
-      {serverData.pageNumList.map((pageNum) => (
-        <div
-          key={pageNum}
-          className={`m-2 p-2 w-12 text-center rounded shadow-md text-white
+      {serverData.pageNumList.map((pageNum) => {
+        console.log(pageNum)
+        return (
+          <div
+            key={pageNum}
+            className={`m-2 p-2 w-12 text-center rounded shadow-md text-white
  ${serverData.current === pageNum ? "bg-gray-500" : "bg-blue-400"}`}
-          onClick={() => movePage({ page: pageNum })}
-        >
-          {pageNum}
-        </div>
-      ))}
+            onClick={() => movePage({ page: pageNum })}
+          >
+            {pageNum}
+          </div>
+        );
+      })}
       {serverData.next ? (
         <div
           className="m-2 p-2 w-16 text-center font-bold text-blue-400"

@@ -24,8 +24,8 @@ const AddComponent = () => {
     postAdd(todo)
       .then((res) => {
         console.log(res);
-        setResult(res.tno); //결과 데이터 변경
-        setTodo({ ...initState });
+        setResult(res.todo.tno); //결과 데이터 변경
+        setTodo({...initState});
       })
       .catch((e) => console.error(e));
   };

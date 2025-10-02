@@ -8,8 +8,8 @@ export const getOne = async (tno) =>{
     return data;
 }
 
-export const getList = async () => {
-  var str = `${prefix}/list`;
+export const getList = async ({page,size}) => {
+  var str= `${prefix}/list?page=${page}&size=${size}`;
   const {data} = await axios.get(str);
   console.log(data)
   return data;
